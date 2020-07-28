@@ -1,9 +1,29 @@
 package gameEntities;
 
+import Weapon.Weapons;
+
 public abstract class Entity {
-    private double health;
-    private double armor;
-    private double damage;
+    private  double health = 100;
+    private double armor = 0;
+    private double damage = 5;
+    private double healthWithArmour = health + armor;
+    boolean isALive = true;
+
+    public boolean getIsALive() {
+        return isALive;
+    }
+
+    public void setALive(boolean ALive) {
+        isALive = ALive;
+    }
+
+    public double getHealthWithArmour() {
+        return healthWithArmour;
+    }
+
+    public void setHealthWithArmour(double healthWithArmour) {
+        this.healthWithArmour = healthWithArmour;
+    }
 
     public double getHealth() {
         return health;
@@ -32,4 +52,13 @@ public abstract class Entity {
         this.setArmor(armor);
         this.setDamage(damage);
     }
+    public Entity()
+    {
+
+    }
+    public void selectWeapon(Weapons weapon)
+    {
+        this.damage+=weapon.getDamage();
+    }
+
 }

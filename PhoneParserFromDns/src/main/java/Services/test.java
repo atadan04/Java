@@ -5,8 +5,9 @@ import org.w3c.dom.ls.LSOutput;
 import java.io.IOException;
 
 public class test {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         {
+
             Parser.parse();
 
         }

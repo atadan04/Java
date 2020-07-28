@@ -14,5 +14,6 @@ public class GameInterface {
         System.out.printf(ANSI_BLUE + "||" + ANSI_RED +"Health - %.1f " +  ANSI_BLUE + "||" + ANSI_RESET,player.getHealth() );
         System.out.printf(ANSI_GREEN + "Armor - %.1f "+ ANSI_BLUE + "||" + ANSI_RESET,player.getArmor());
         System.out.printf(ANSI_PURPLE + "Damage - %.1f "+ ANSI_BLUE + "||" + ANSI_RESET,player.getDamage());
+        System.out.println();
     }
 }
