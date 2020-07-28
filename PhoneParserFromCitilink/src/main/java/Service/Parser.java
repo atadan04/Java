@@ -9,13 +9,21 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
     private static  String url = "https://www.citilink.ru/catalog/mobile/smartfony/?&p=";
     public static int numPage = 1;
-    public static Document getPage(int numPage) throws IOException {
+    public WriteToDataBase writeToDataBase;
+    public static Document getPage(int numPage) throws IOException, InterruptedException {
+
+//            Document page = Jsoup.connect(url+String.valueOf(numPage)).data("query", "Java")
+//                    .userAgent("Mozilla")
+//                    .cookie("auth", "token")
+//                    .timeout(10000)
+//                    .post();
 
 
             Document page = Jsoup.parse(new URL(url+String.valueOf(numPage)), 10000);
@@ -25,15 +33,18 @@ public class Parser {
 
     }
 
-    public static int getLastPage() throws IOException {
+    public static int getLastPage() throws IOException, InterruptedException {
         Document page = Parser.getPage(1);
         String lastPage = page.select("div[class=page_listing]").select("li[class=last]").select("a[class=other-page]").last().text();
         Integer lastPageInt = Integer.parseInt(lastPage);
 
+
         return lastPageInt;
     }
 
-    public static void parse() throws IOException {
+    public  void parse() throws IOException, SQLException, InterruptedException {
+        PhoneService phoneService = new PhoneService();
+        phoneService.truncateTable();
         while(numPage<=getLastPage()){
         Document page = Parser.getPage(numPage++);
 //        Elements itemsList = page.select("div[class=block_data__gtm-js block_data__pageevents-js listing_block_data__pageevents-js]");
@@ -51,6 +62,7 @@ public class Parser {
 
             Elements priceBlock = itemByIndex.select("span[class=subcategory-product-item__price subcategory-product-item__price_standart]").select("ins[class=subcategory-product-item__price-num]");//price
             String price = priceBlock.text();//получение строкового значения цены продукта
+//            int priceInt = Integer.parseInt(price);//получение целочисленного значения цены продукта
             Elements urlsOnImageAndPagePhone = itemByIndex.select("div[class=image subcategory-product-item__image]");
 
             Elements urlOnImageBlock = urlsOnImageAndPagePhone.select("div[class=wrap-img]").select("img[class=lazyloaded]");
@@ -68,6 +80,11 @@ public class Parser {
 
                 urlOnImage = matcherUrlOnImage.group();
             }
+
+            Phone phone = new Phone(productName, price,urlOnImage,urlOnItem);
+
+            phoneService.add(phone);
+
 
             System.out.println(productName + " Цена: " + price + " Ссылка на товар: " + urlOnItem + " Ссылка на изображение: " + urlOnImage);
 
