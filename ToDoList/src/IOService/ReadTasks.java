@@ -11,7 +11,7 @@ public class ReadTasks {
         List<Task> tasks = null;
 
         try {
-            FileInputStream fis  = new FileInputStream("D:\\Java projects\\ToDoList\\src\\IOService\\tasks.bin");
+            FileInputStream fis  = new FileInputStream("D:\\projectGitHub\\Java\\ToDoList\\src\\IOService\\tasks.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             tasks = (List<Task>)ois.readObject();
@@ -19,14 +19,10 @@ public class ReadTasks {
         }
         catch (EOFException e)
         {
-            System.out.println("В данном файле пока что нет тасков...");
-            System.out.println("Заведите новый таск...");
+            System.out.println("This file empty...");
+            System.out.println("Create new task...");
 
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 

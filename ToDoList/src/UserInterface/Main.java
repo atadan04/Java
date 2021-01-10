@@ -35,17 +35,46 @@ while(true)
 
 
 //
-    System.out.println("Введите название задачи/Введите 0, если хотите выйти: ");
+    System.out.println("Enter task name/Enter 0, if you want to leave ");
+    System.out.println("Or enter \"delete\" to remove task: ");
     Scanner scanner = new Scanner(System.in);
 
     String taskName = scanner.nextLine();
     if (taskName.equals("0"))
     {
-        System.out.println("Программы завершена...");
+        System.out.println("Program completed...");
         break;
 
     }
-    System.out.println("Введите дату выполнения задачи(формат - dd/mm/yyyy): ");
+    if(taskName.equals("delete"))
+    {
+        try{
+            System.out.println("Enter number of task to remove it: ");
+            int response = scanner.nextInt();
+            deleteTask(tasks,response-1);
+            System.out.println("Task deleted...");
+
+
+            Task.setCount(Task.getCount()-1);
+            Task temp = tasks.get(response-1);
+            temp.setId(temp.getId()-1);
+
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+
+        }
+        finally {
+            WriteTasks wt = new WriteTasks();
+            wt.write(tasks);
+        }
+
+        continue;
+
+
+    }
+    System.out.println("Enter date of completion task (format - dd/mm/yyyy): ");
+
     String releaseDate = scanner.nextLine();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     Date date = new Date();
@@ -55,7 +84,7 @@ while(true)
         task = new Task(taskName,taskDate,releaseDate);
     } catch (DateTaskException e) {
         System.out.println(e.getMessage());
-        System.out.println("Попробуйте заново...");
+        System.out.println("Try again...");
         continue;
     }
     tasks.add(task);
@@ -64,17 +93,10 @@ while(true)
     wt.write(tasks);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
+    public static void deleteTask(List<Task> tasks,int index)
+    {
+        tasks.remove(index);
+    }
+
 }

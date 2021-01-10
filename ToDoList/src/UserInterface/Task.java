@@ -25,12 +25,29 @@ public class Task implements Serializable {
         }
         else
         {
-            throw new DateTaskException("Дата введена в неверном формате");
+            throw new DateTaskException("Invalid date format");
         }
 
 
     }
-    public Task(String taskName,String taskDate,String releaseDate) throws DateTaskException {
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        Task.count = count;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Task(String taskName, String taskDate, String releaseDate) throws DateTaskException {
 
 
         setReleaseDate(releaseDate);
@@ -43,6 +60,7 @@ public class Task implements Serializable {
     {
         System.out.printf("Task#%3d Task name - %-20s   |   Task date - %s   |    Release date - %s ",id,taskName,taskDate,releaseDate);
     }
+
 
 
 
