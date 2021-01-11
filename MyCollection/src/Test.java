@@ -32,15 +32,17 @@ LinkedList<Integer> list = new LinkedList<>();
         myLinkedList.remove(2);
         myLinkedList.show();
         System.out.println(myLinkedList.size());
+Map<String,String> map1 = new HashMap<>();
+
+MyHashMap<String,String> map = new MyHashMap<String, String>();
 
 
 
-
-//        map.put("один","One");
-//        map.put("два","Two");
-//        map.put("три","Three");
-//        map.put("четыре","Four");
-//        map.put("четыре","Five");
+        map.put("один","One");
+        map.put("два","Two");
+        map.put("три","Three");
+        map.put("четыре","Four");
+        map.put("пять","Five");
 //        map.put("выа","Two");
 //        map.put("аывпрва","Three");
 //        map.put("ывавапаврсм","Four");
@@ -67,11 +69,11 @@ LinkedList<Integer> list = new LinkedList<>();
 
 
 
-//        System.out.println(map.get("один"));
-//        System.out.println(map.get("два"));
-//        System.out.println(map.get("три"));
-//        System.out.println(map.get("четыре"));
-//        System.out.println(map.get("пять"));
+        System.out.println(map.get("один"));
+        System.out.println(map.get("два"));
+        System.out.println(map.get("три"));
+        System.out.println(map.get("четыре"));
+        System.out.println(map.get("пять"));
 
 //        System.out.println(map.get(1));
 //        System.out.println(map.get(2));

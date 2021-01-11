@@ -1,10 +1,9 @@
 package MyHashMap;
 
-import java.util.LinkedList;
 import java.util.Objects;
 
 public class MyHashMap<K,V> {
-    public  Node<K,V>[] arrayNodes = new Node[5];
+    public  Node<K,V>[] bucket = new Node[5];
     private int size = 0;
 //    public  Node<K,V>[] initArrayNodes(){
 //        arrayNodes = new Node[16];
@@ -16,14 +15,14 @@ public class MyHashMap<K,V> {
             int hash = key.hashCode();
             Node node = new Node(hash,key,value,null);
             int index = node.calculationIndex();
-            if (arrayNodes[index]==null)
+            if (bucket[index]==null)
             {
-                arrayNodes[index] = node;
+                bucket[index] = node;
                 size++;
             }
             else
             {
-                Node temp = arrayNodes[index];
+                Node temp = bucket[index];
                 if (!temp.equals(key))
                 {
                     while(temp.getNext()!=null)
@@ -38,7 +37,7 @@ public class MyHashMap<K,V> {
                             temp = temp.getNext();
                         }
                     }
-                    System.out.println("FFDSFSDF");
+
                     temp.setNext(node);
 //                    temp.setValue(value);
                 }
@@ -50,40 +49,75 @@ public class MyHashMap<K,V> {
 
             }
 
+
     }
     public Node<K,V> get(K key)
     {
         int hash = key.hashCode();
         int index = hash & 4;
-        if (arrayNodes[index].getKey().hashCode()==hash)
+        System.out.println(bucket[index].getKey().hashCode() + "\t" + hash);
+        if(bucket[index].getKey().hashCode()==hash)
         {
-            if (arrayNodes[index].getKey().equals(key))
+            if (bucket[index].getKey().equals(key))
             {
-                return arrayNodes[index];
+                return bucket[index];
             }
-            else
-            {
-                Node temp = arrayNodes[index].getNext();
-                while(temp!=null)
-                {
+//            else
+//            {
+//                return nextEl(bucket[index],key);
+//            }
+        }
+        return nextEl(bucket[index],key);
+//        int hash = key.hashCode();
+//        int index = hash & 4;
+//        if (bucket[index].getKey().hashCode()==hash)
+//        {
+//            if (bucket[index].getKey().equals(key))
+//            {
+//                return bucket[index];
+//            }
+//            else
+//            {
+//            }
+//
+//        }
+//        else
+//        {
+//            Node temp = bucket[index].getNext();
+//            while(temp!=null)
+//            {
+//
+//                if (temp.getKey().hashCode()==hash)
+//                {
+//                    if (temp.getKey().equals(key))
+//                    {
+//                        return temp;
+//                    }
+//                    else
+//                    {
+//                        continue;
+//                    }
+//                }
+//                else
+//                {
+//                    continue;
+//                }
+//            }
+//        }
+//        return null;
+    }
+    private Node<K,V> nextEl(Node node,K key) {
 
-                    if (temp.getKey().hashCode()==hash)
-                    {
-                        if (temp.getKey().equals(key))
-                        {
-                            return temp;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
+
+        if (node.getKey().equals(key))
+        {
+            return node;
+        }
+        else
+        {
+            if (node.getNext()!=null)
+            nextEl(node.getNext(),key);
+
         }
         return null;
     }
@@ -155,7 +189,9 @@ class Node<K,V> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(key);
+
+            return Objects.hashCode(key);
+
     }
 
     @Override
