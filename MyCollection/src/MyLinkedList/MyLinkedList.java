@@ -8,67 +8,41 @@ public class MyLinkedList<T> {
         return size;
     }
 
-    public void add(T value)
-    {
-        if (head==null)
-        {
+    public void add(T value) {
+        if (head == null) {
             head = new Node(value);
-        }
-        else
-        {
-            Node temp =head;
-            while(temp.getNext()!=null)
-            {
+        } else {
+            Node temp = head;
+            while (temp.getNext() != null) {
                 temp = temp.getNext();
             }
             temp.setNext(new Node(value));
         }
         size++;
     }
-    public void remove(int index)
-    {
+
+    public void remove(int index) {
         int point = 0;
         Node temp = head;
-        if (index==0)
-        {
-            head=head.getNext();
-        }
-        else
-        {
-            while(index-1!=point)
-            {
-
-
-                    temp = temp.getNext();
-                    point++;
-
-
-
+        if (index == 0) {
+            head = head.getNext();
+        } else {
+            while (index - 1 != point) {
+                temp = temp.getNext();
+                point++;
             }
             temp.setNext(temp.getNext().getNext());
         }
         size--;
     }
-    public void show()
-    {
-        Node temp = head;
-        for(int i=0;i<size;i++)
-        {
-
-            System.out.print(temp.getValue() + " ");
-            temp = temp.getNext();
-        }
-        System.out.println();
-    }
-
-
 }
-class Node<T>{
+
+class Node<T> {
 
     private Node next;
     private T value;
-    public Node(T value)
-    {
+
+    public Node(T value) {
         this.value = value;
     }
 
