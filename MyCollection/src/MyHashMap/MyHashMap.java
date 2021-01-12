@@ -51,60 +51,31 @@ public class MyHashMap<K,V> {
 
 
     }
+    private Boolean contains(K key1, K key2)
+    {
+        if (key1.hashCode()==key2.hashCode())
+        {
+            if (key1.equals(key2))
+            {
+                return true;
+            }
+        }
+         return false;
+    }
     public Node<K,V> get(K key)
     {
         int hash = key.hashCode();
         int index = hash & 4;
         System.out.println(bucket[index].getKey().hashCode() + "\t" + hash);
-        if(bucket[index].getKey().hashCode()==hash)
+        if (contains(bucket[index].getKey(),key))
         {
-            if (bucket[index].getKey().equals(key))
-            {
-                return bucket[index];
-            }
-//            else
-//            {
-//                return nextEl(bucket[index],key);
-//            }
+            return bucket[index];
         }
-        return nextEl(bucket[index],key);
-//        int hash = key.hashCode();
-//        int index = hash & 4;
-//        if (bucket[index].getKey().hashCode()==hash)
-//        {
-//            if (bucket[index].getKey().equals(key))
-//            {
-//                return bucket[index];
-//            }
-//            else
-//            {
-//            }
+        else
+        {
+           return nextEl(bucket[index],key);
+        }
 //
-//        }
-//        else
-//        {
-//            Node temp = bucket[index].getNext();
-//            while(temp!=null)
-//            {
-//
-//                if (temp.getKey().hashCode()==hash)
-//                {
-//                    if (temp.getKey().equals(key))
-//                    {
-//                        return temp;
-//                    }
-//                    else
-//                    {
-//                        continue;
-//                    }
-//                }
-//                else
-//                {
-//                    continue;
-//                }
-//            }
-//        }
-//        return null;
     }
     private Node<K,V> nextEl(Node node,K key) {
 
@@ -116,9 +87,11 @@ public class MyHashMap<K,V> {
         else
         {
             if (node.getNext()!=null)
-            nextEl(node.getNext(),key);
+            return nextEl(node.getNext(),key);
+
 
         }
+
         return null;
     }
 

@@ -43,6 +43,7 @@ MyHashMap<String,String> map = new MyHashMap<String, String>();
         map.put("три","Three");
         map.put("четыре","Four");
         map.put("пять","Five");
+        map.put("пять","Six");
 //        map.put("выа","Two");
 //        map.put("аывпрва","Three");
 //        map.put("ывавапаврсм","Four");
